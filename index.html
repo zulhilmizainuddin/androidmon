@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Android Process Monitor</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="libs/chrome-tabs/css/chrome-tabs.css">
+    <link rel="stylesheet" href="content/index.css">
+</head>
+
+<body>
+<div class="chrome-tabs-shell">
+    <div class="chrome-tabs">
+        <div class="chrome-tab chrome-tab-current">
+            <div class="chrome-tab-favicon" style="background-image: url('res/img/cpu.png')"></div>
+            <div class="chrome-tab-title">CPU</div>
+            <div class="chrome-tab-curves">
+                <div class="chrome-tab-curves-left-shadow"></div>
+                <div class="chrome-tab-curves-left-highlight"></div>
+                <div class="chrome-tab-curves-left"></div>
+                <div class="chrome-tab-curves-right-shadow"></div>
+                <div class="chrome-tab-curves-right-highlight"></div>
+                <div class="chrome-tab-curves-right"></div>
+            </div>
+        </div>
+        <div class="chrome-tab">
+            <div class="chrome-tab-favicon" style="background-image: url('res/img/memory.png')"></div>
+            <div class="chrome-tab-title">Memory</div>
+            <div class="chrome-tab-curves">
+                <div class="chrome-tab-curves-left-shadow"></div>
+                <div class="chrome-tab-curves-left-highlight"></div>
+                <div class="chrome-tab-curves-left"></div>
+                <div class="chrome-tab-curves-right-shadow"></div>
+                <div class="chrome-tab-curves-right-highlight"></div>
+                <div class="chrome-tab-curves-right"></div>
+            </div>
+        </div>
+    </div>
+    <div class="chrome-shell-bottom-bar"></div>
+</div>
+<div id="processNameInput" class="form-inline">
+    <div class="form-group">
+        <label for="processName" class="sr-only">Android process name:</label>
+        <input type="text" id="processName" class="form-control input-sm"
+               placeholder="Enter android process name here"/>
+    </div>
+    <button id="startMonitor" class="btn btn-success btn-sm">Start monitor</button>
+    <button id="stopMonitor" class="btn btn-danger btn-sm">Stop monitor</button>
+    <div class="checkbox">
+        <label>
+            <input id="enableLog" type="checkbox"> Enable log
+        </label>
+    </div>
+</div>
+<div id="cpu" class="chart">
+    <canvas id="cpuChart" class="chartCanvas"></canvas>
+    <div class="usageDisplay">
+        <h2>CPU</h2>
+        <div>
+            <h6>Utilization</h6>
+            <h3 id="cpuUtilization"></h3>
+        </div>
+        <div>
+            <h6>PID</h6>
+            <h3 id="processPid"></h3>
+        </div>
+        <div>
+            <h6>Threads</h6>
+            <h3 id="threadCount"></h3>
+        </div>
+    </div>
+    <div id="cpuLegend" class="chartLegend">
+        <label class="chartLegendLabel">Legend</label>
+    </div>
+</div>
+<div id="memory" class="chart" style="visibility: hidden">
+    <canvas id="memoryChart" class="chartCanvas"></canvas>
+    <div class="usageDisplay">
+        <h2>Memory</h2>
+        <div>
+            <h6>PSS</h6>
+            <h3 id="pss"></h3>
+        </div>
+        <div>
+            <h6>Private dirty</h6>
+            <h3 id="privateDirty"></h3>
+        </div>
+        <div>
+            <h6>Private clean</h6>
+            <h3 id="privateClean"></h3>
+        </div>
+    </div>
+    <div id="memoryLegend" class="chartLegend">
+        <label class="chartLegendLabel">Legend</label>
+    </div>
+</div>
+<script>
+    window.$ = window.jQuery = require('./bower_components/jquery/dist/jquery.min.js');
+</script>
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="libs/chrome-tabs/js/chrome-tabs.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/Chart.js/Chart.min.js"></script>
+<script src="scripts/index.js"></script>
+</body>
+
+</html>

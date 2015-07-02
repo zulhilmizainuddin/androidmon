@@ -1,0 +1,54 @@
+* {
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    overflow: hidden;
+}
+
+h3 {
+    margin-top: 0px;
+}
+
+h6 {
+    margin-bottom: 0px;
+}
+
+#processNameInput {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+#processName {
+    width: 400px;
+}
+
+.chart {
+    margin-top: 10px;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.chartCanvas {
+    width: 640px;
+    height: 360px;
+    float: left;
+}
+
+.usageDisplay {
+    float: left;
+    margin-left: 5px;
+}
+
+.chartLegend {
+    clear: left;
+}
+
+.chartLegendLabel {
+    float: left;
+    margin-left: 5px;
+}

@@ -1,0 +1,28 @@
+{
+  "name": "android-process-monitor",
+  "version": "0.1.0",
+  "authors": [
+    "Zulhilmi Bin Mohamed Zainuddin"
+  ],
+  "description": "Android process monitor",
+  "main": "main.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "Chart.js": "~1.0.2",
+    "jquery-ui": "~1.11.4"
+  },
+  "keywords": [
+    "Android",
+    "process",
+    "monitor"
+  ]
+}
