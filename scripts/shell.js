@@ -1,11 +1,7 @@
 var shell = {
     scripts: {
-        cpuScript:  'filename=/data/data/apm.conf;' +
+        cpuScript:  'filename=/sdcard/apm.conf;' +
                     'echo 0 > $filename;' +
-                    'if [ $? -eq 1 ];' +
-                        'then filename=/sdcard/apm.conf;' +
-                        'echo 0 > $filename;' +
-                    'fi;' +
                     'while true;' +
                         'do flag=$(cat $filename);' +
                             'if [ $flag -eq 1 ];' +
@@ -22,12 +18,8 @@ var shell = {
                             'fi;' +
                         'done',
 
-        memoryScript:   'filename=/data/data/apm.conf;' +
+        memoryScript:   'filename=/sdcard/apm.conf;' +
                         'echo 0 > $filename;' +
-                        'if [ $? -eq 1 ];' +
-                            'then filename=/sdcard/apm.conf;' +
-                            'echo 0 > $filename;' +
-                        'fi;' +
                         'while true;' +
                             'do flag=$(cat $filename);' +
                                 'if [ $flag -eq 1 ];' +
@@ -47,12 +39,8 @@ var shell = {
 
         killScript: 'adb shell ' +
                     '"' +
-                    'filename=/data/data/apm.conf;' +
+                    'filename=/sdcard/apm.conf;' +
                     'echo 1 > $filename;' +
-                    'if [ $? -eq 1 ];' +
-                        'then filename=/sdcard/apm.conf;' +
-                        'echo 1 > $filename;' +
-                    'fi;' +
                     '"',
 
         startAdb: 'adb shell "echo start > /dev/null"'
