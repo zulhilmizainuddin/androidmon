@@ -1,6 +1,7 @@
 var childProcess = require('child_process');
 var EventEmitter = require('events').EventEmitter;
-var shell = require('./shell.js');
+var fs = require('fs');
+var sprintf = require('sprintf-js').sprintf;
 
 var Executer = function () {
     this.child = null;
@@ -10,7 +11,10 @@ var Executer = function () {
 Executer.prototype = Object.create(EventEmitter.prototype);
 
 Executer.prototype.execute = function (command, args) {
-    childProcess.execSync(shell.scripts.startAdb);
+    var startAdbScript = fs.readFileSync('scripts/start-adb-script.sh', 'utf8');
+    startAdbScript = sprintf('adb shell "%s"', startAdbScript).replace(/\r?\n|\r/g, "");
+
+    childProcess.execSync(startAdbScript);
 
     var child = this.child = childProcess.spawn(command, args);
 
@@ -36,7 +40,10 @@ Executer.prototype.execute = function (command, args) {
 Executer.prototype.terminate = function () {
 
   this.child.on('exit', function () {
-      childProcess.exec(shell.scripts.killScript);
+      var killScript = fs.readFileSync('scripts/kill-script.sh', 'utf8');
+      killScript = sprintf('adb shell "%s"', killScript).replace(/\r?\n|\r/g, "");
+
+      childProcess.exec(killScript);
   });
 
   this.child.kill();

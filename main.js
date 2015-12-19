@@ -1,7 +1,8 @@
 var app = require('app');
 var BrowserWindow = require('browser-window');
 var childProcess = require('child_process');
-var shell = require('./scripts/shell.js');
+var fs = require('fs');
+var sprintf = require('sprintf-js').sprintf;
 
 var mainWindow = null;
 
@@ -16,7 +17,10 @@ app.on('ready', function () {
     mainWindow.loadUrl('file://' + __dirname + '/index.html');
     //mainWindow.openDevTools();
     mainWindow.on('closed', function () {
-        childProcess.exec(shell.scripts.killScript);
+        var killScript = fs.readFileSync('scripts/kill-script.sh', 'utf8');
+        killScript = sprintf('adb shell "%s"', killScript).replace(/\r?\n|\r/g, "");
+
+        childProcess.exec(killScript);
         mainWindow = null;
     });
 });

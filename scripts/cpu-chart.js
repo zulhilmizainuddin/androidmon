@@ -1,7 +1,7 @@
 var sprintf = require('sprintf-js').sprintf;
 var moment = require('moment');
+var fs = require('fs');
 var LineChart = require('./line-chart.js');
-var shell = require('./shell.js');
 var Logger = require('./logger.js');
 
 var CpuChart = function (ctx, info) {
@@ -27,11 +27,12 @@ CpuChart.prototype.init = function () {
 
 CpuChart.prototype.start = function (processName) {
 
-    var shellScript = sprintf(shell.scripts.cpuScript, processName);
+    var cpuScript = fs.readFileSync('scripts/cpu-script.sh', 'utf8');
+    cpuScript = sprintf(cpuScript, processName).replace(/\r?\n|\r/g, "");
 
     var command = {
         cmd: 'adb',
-        args: ['shell', shellScript]
+        args: ['shell', cpuScript]
     };
 
     LineChart.prototype.start.call(this, command, function (values, data) {

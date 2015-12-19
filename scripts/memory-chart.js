@@ -1,7 +1,7 @@
 var sprintf = require('sprintf-js').sprintf;
 var moment = require('moment');
+var fs = require('fs');
 var LineChart = require('./line-chart.js');
-var shell = require('./shell.js');
 var Logger = require('./logger.js');
 
 var MemoryChart = function (ctx, info) {
@@ -72,11 +72,12 @@ MemoryChart.prototype.rescale = function (values) {
 
 MemoryChart.prototype.start = function (processName) {
 
-    var shellScript = sprintf(shell.scripts.memoryScript, processName);
+    var memoryScript = fs.readFileSync('scripts/memory-script.sh', 'utf8');
+    memoryScript = sprintf(memoryScript, processName).replace(/\r?\n|\r/g, "");
 
     var command = {
         cmd: 'adb',
-        args: ['shell', shellScript]
+        args: ['shell', memoryScript]
     };
 
     LineChart.prototype.start.call(this, command, function (values, data) {
