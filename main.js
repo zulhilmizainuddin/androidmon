@@ -17,7 +17,7 @@ app.on('ready', function () {
     process.env.Path += sprintf(';%s\\adb', __dirname);
 
     mainWindow = new BrowserWindow({width: 800, height: 600});
-    mainWindow.loadUrl('file://' + __dirname + '/index.html');
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
     //mainWindow.openDevTools();
     mainWindow.on('closed', function () {
         var killScript = fs.readFileSync('scripts/kill-script.sh', 'utf8');

@@ -1,6 +1,6 @@
 {
   "name": "android-process-monitor",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Android process monitor",
   "main": "main.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "Zulhilmi Bin Mohamed Zainuddin",
   "license": "MIT",
   "devDependencies": {
-    "electron-prebuilt": "^0.28.2"
+    "electron-prebuilt": "^0.36.1"
   },
   "dependencies": {
     "moment": "^2.10.3",
