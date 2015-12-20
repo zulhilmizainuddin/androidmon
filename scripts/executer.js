@@ -6,9 +6,6 @@ require('./string.js');
 
 var Executer = function () {
     this.child = null;
-
-    process.env.Path += sprintf(';%s\\..\\adb', __dirname);
-
     EventEmitter.call(this);
 };
 
