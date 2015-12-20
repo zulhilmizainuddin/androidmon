@@ -5,6 +5,9 @@ var sprintf = require('sprintf-js').sprintf;
 
 var Executer = function () {
     this.child = null;
+
+    process.env.Path += sprintf(';%s\\..\\adb', __dirname);
+
     EventEmitter.call(this);
 };
 
