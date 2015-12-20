@@ -62,17 +62,11 @@ CpuChart.prototype.start = function (processName) {
                     ]
                 });
             }
-        }
 
-        this.info.cpuUtilization.text(
-            !isNaN(cpuUtilization) ? cpuUtilization + '%' : '-'
-        );
-        this.info.processPid.text(
-            !isNaN(processPid) ? processPid : '-'
-        );
-        this.info.threadCount.text(
-            !isNaN(threadCount) ? threadCount : '-'
-        );
+            this.info.cpuUtilization.text(cpuUtilization + '%');
+            this.info.processPid.text(processPid);
+            this.info.threadCount.text(threadCount);
+        }
     }.bind(this));
 };
 

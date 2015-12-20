@@ -24,15 +24,19 @@ Executer.prototype.execute = function (command, args) {
     child.stdout.on('data', function (data) {
         var buffer = new Buffer(data).toString();
 
-        var split = buffer.trim().split(' ');
+        /*console.log(data);*/
 
-        var values = split.filter(function (value) {
-            return value !== '';
-        });
+        if (buffer !== '\r\r\n') {
+            var split = buffer.trim().split(' ');
 
-        //console.log(values);
+            var values = split.filter(function (value) {
+                return value !== '';
+            });
 
-        this.emit('data', values);
+            /*console.log(values);*/
+
+            this.emit('data', values);
+        }
     }.bind(this));
 
     child.on('close', function (code) {
