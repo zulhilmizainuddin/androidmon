@@ -6,9 +6,7 @@ It also provides cpu and memory usage logging capability in csv format for easy 
 
 ## Getting Started
 
-Make sure Node.js, npm, bower and adb is installed. 
-
-Add adb to the environment path to allow the application to communicate with an android device through adb.
+Make sure Node.js, npm, bower are installed.
 
 Get the dependencies:
 
