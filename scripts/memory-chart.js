@@ -111,17 +111,11 @@ MemoryChart.prototype.start = function (processName) {
                     ]
                 });
             }
-        }
 
-        this.info.pss.text(
-            !isNaN(pss) ? pss + ' KB' : '-'
-        );
-        this.info.privateDirty.text(
-            !isNaN(privateDirty) ? privateDirty + ' KB' : '-'
-        );
-        this.info.privateClean.text(
-            !isNaN(privateClean) ? privateClean + ' KB' : '-'
-        );
+            this.info.pss.text(pss + " KB");
+            this.info.privateDirty.text(privateDirty + ' KB');
+            this.info.privateClean.text(privateClean + ' KB');
+        }
     }.bind(this));
 };
 
