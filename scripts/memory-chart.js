@@ -3,6 +3,7 @@ var moment = require('moment');
 var fs = require('fs');
 var LineChart = require('./line-chart.js');
 var Logger = require('./logger.js');
+require('./string.js');
 
 var MemoryChart = function (ctx, info) {
     this.info = info;
@@ -73,7 +74,7 @@ MemoryChart.prototype.rescale = function (values) {
 MemoryChart.prototype.start = function (processName) {
 
     var memoryScript = fs.readFileSync('scripts/memory-script.sh', 'utf8');
-    memoryScript = sprintf(memoryScript, processName).replace(/\r?\n|\r/g, "");
+    memoryScript = sprintf(memoryScript, processName).removeAllNewlines();
 
     var command = {
         cmd: 'adb',

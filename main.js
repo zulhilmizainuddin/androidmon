@@ -3,6 +3,7 @@ var BrowserWindow = require('browser-window');
 var childProcess = require('child_process');
 var fs = require('fs');
 var sprintf = require('sprintf-js').sprintf;
+require('./scripts/string.js');
 
 var mainWindow = null;
 
@@ -18,7 +19,7 @@ app.on('ready', function () {
     //mainWindow.openDevTools();
     mainWindow.on('closed', function () {
         var killScript = fs.readFileSync('scripts/kill-script.sh', 'utf8');
-        killScript = sprintf('adb shell "%s"', killScript).replace(/\r?\n|\r/g, "");
+        killScript = sprintf('adb shell "%s"', killScript).removeAllNewlines();
 
         childProcess.exec(killScript);
         mainWindow = null;

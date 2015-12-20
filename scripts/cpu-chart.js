@@ -3,6 +3,7 @@ var moment = require('moment');
 var fs = require('fs');
 var LineChart = require('./line-chart.js');
 var Logger = require('./logger.js');
+require('./string.js');
 
 var CpuChart = function (ctx, info) {
     this.info = info;
@@ -28,7 +29,7 @@ CpuChart.prototype.init = function () {
 CpuChart.prototype.start = function (processName) {
 
     var cpuScript = fs.readFileSync('scripts/cpu-script.sh', 'utf8');
-    cpuScript = sprintf(cpuScript, processName).replace(/\r?\n|\r/g, "");
+    cpuScript = sprintf(cpuScript, processName).removeAllNewlines();
 
     var command = {
         cmd: 'adb',
