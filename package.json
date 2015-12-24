@@ -1,5 +1,5 @@
 {
-  "name": "android-process-monitor",
+  "name": "androidmon",
   "version": "1.0.0",
   "description": "Android process monitor",
   "main": "main.js",

@@ -1,4 +1,4 @@
-# android-process-monitor
+# androidmon
 
 An application for monitoring android process cpu and memory usage created using Node.js, Github's Electron and Chart.js.
 
@@ -27,7 +27,7 @@ Start the application by running:
 ## Screenshots
 
 Cpu chart:<br>
-<img src="https://github.com/wiseguy343gs/android-process-monitor/blob/master/screenshots/cpu-screenshot.png" width="640px" height="480px">
+<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/cpu-screenshot.png" width="640px" height="480px">
 
 Memory chart:<br>
-<img src="https://github.com/wiseguy343gs/android-process-monitor/blob/master/screenshots/memory-screenshot.png" width="640px" height="480px">
+<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/memory-screenshot.png" width="640px" height="480px">
