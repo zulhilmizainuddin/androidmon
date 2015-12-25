@@ -31,27 +31,8 @@ const LineChart = function (ctx) {
     };
 
     this.data = {
-        labels: (function () {
-            const array = [];
-
-            let j = 60;
-            for (let i = 0; i < 60; i++) {
-                array[i] = j--;
-            }
-
-            return array;
-        })()
+        labels: new Array(60).fill(0).map((value, index) => { return 60 - index; })
     };
-};
-
-LineChart.prototype.initializeDatasets = function () {
-    const array = [];
-
-    for (let i = 0; i < 60; i++) {
-        array[i] = 0;
-    }
-
-    return array;
 };
 
 LineChart.prototype.instantiateChart = function () {
@@ -70,7 +51,7 @@ LineChart.prototype.prepareData = function (usage, data) {
 LineChart.prototype.init = function (datasets) {
 
     for (let i = 0; i < datasets.length; i++) {
-        datasets[i].data = this.initializeDatasets();
+        datasets[i].data = new Array(60).fill(0);
     }
 
     this.data.datasets = datasets;
