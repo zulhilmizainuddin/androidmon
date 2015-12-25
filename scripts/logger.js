@@ -1,6 +1,8 @@
-var fs = require('fs');
+"use strict";
 
-var Logger = function () {
+const fs = require('fs');
+
+const Logger = function () {
     this.columnNameWritten = false;
 };
 
@@ -8,22 +10,22 @@ Logger.enableLog = false;
 
 Logger.prototype.log = function (fileName, data) {
     if (Logger.enableLog) {
-        var directory = __dirname + '/../log';
-        var input = '';
+        const directory = __dirname + '/../log';
+        let input = '';
 
-        fs.mkdir(directory, function (err) {
+        fs.mkdir(directory, (err) => {
             if (!this.columnNameWritten) {
                 input = data.columnNames.join(',') + '\n';
             }
 
             input += data.values.join(',') + '\n';
 
-            fs.appendFile(directory + '/' + fileName + '.log', input, function (err) {
+            fs.appendFile(directory + '/' + fileName + '.log', input, (err) => {
                if (!err) {
                    this.columnNameWritten = true;
                }
-            }.bind(this));
-        }.bind(this));
+            });
+        });
     }
 };
 

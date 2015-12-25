@@ -1,7 +1,8 @@
-var Executer = require('./executer.js');
-var chart = require('../bower_components/Chart.js/Chart.min.js');
+"use strict";
 
-var LineChart = function (ctx) {
+const Executer = require('./executer.js');
+
+const LineChart = function (ctx) {
     this.ctx = ctx;
     this.lineChart = null;
     this.logFile = '';
@@ -31,10 +32,10 @@ var LineChart = function (ctx) {
 
     this.data = {
         labels: (function () {
-            var array = [];
+            const array = [];
 
-            var j = 60;
-            for (var i = 0; i < 60; i++) {
+            let j = 60;
+            for (let i = 0; i < 60; i++) {
                 array[i] = j--;
             }
 
@@ -44,9 +45,9 @@ var LineChart = function (ctx) {
 };
 
 LineChart.prototype.initializeDatasets = function () {
-    var array = [];
+    const array = [];
 
-    for (var i = 0; i < 60; i++) {
+    for (let i = 0; i < 60; i++) {
         array[i] = 0;
     }
 
@@ -58,7 +59,7 @@ LineChart.prototype.instantiateChart = function () {
 };
 
 LineChart.prototype.prepareData = function (usage, data) {
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         data[i].shift();
         data[i].push(usage[i]);
 
@@ -68,7 +69,7 @@ LineChart.prototype.prepareData = function (usage, data) {
 
 LineChart.prototype.init = function (datasets) {
 
-    for (var i = 0; i < datasets.length; i++) {
+    for (let i = 0; i < datasets.length; i++) {
         datasets[i].data = this.initializeDatasets();
     }
 
@@ -88,26 +89,26 @@ LineChart.prototype.rescale = function (scaleStepWidth) {
 
 LineChart.prototype.start = function (command, processOutput) {
 
-    var array = [];
-    for (var i = 0; i < this.data.datasets.length; i++) {
+    const array = [];
+    for (let i = 0; i < this.data.datasets.length; i++) {
         array[i] = [];
-        for (var j = 0; j < 60; j++) {
+        for (let j = 0; j < 60; j++) {
             array[i][j] = 0;
         }
     }
 
-    this.executer.on('data', function (values) {
+    this.executer.on('data', (values) => {
 
         processOutput(values, array);
 
-        for (var i = 0; i < this.data.datasets.length; i++) {
-            for (var j = 0; j < array[i].length; j++) {
+        for (let i = 0; i < this.data.datasets.length; i++) {
+            for (let j = 0; j < array[i].length; j++) {
                 this.lineChart.datasets[i].points[j].value = array[i][j];
             }
         }
 
         this.lineChart.update();
-    }.bind(this));
+    });
 
     this.executer.execute(command.cmd, command.args);
 };

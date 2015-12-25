@@ -1,11 +1,13 @@
-var sprintf = require('sprintf-js').sprintf;
-var moment = require('moment');
-var fs = require('fs');
-var LineChart = require('./line-chart.js');
-var Logger = require('./logger.js');
+"use strict";
+
+const sprintf = require('sprintf-js').sprintf;
+const moment = require('moment');
+const fs = require('fs');
+const LineChart = require('./line-chart.js');
+const Logger = require('./logger.js');
 require('./string.js');
 
-var MemoryChart = function (ctx, info) {
+const MemoryChart = function (ctx, info) {
     this.info = info;
 
     this.scale = [
@@ -49,19 +51,19 @@ MemoryChart.prototype.init = function () {
 
 MemoryChart.prototype.rescale = function (values) {
 
-    var maxArray = [];
-    for (var i = 0; i < values.length; i++) {
+    const maxArray = [];
+    for (let i = 0; i < values.length; i++) {
         maxArray[i] = Math.max.apply(null, values[i]);
     }
 
-    var max = Math.max.apply(null, maxArray);
+    const max = Math.max.apply(null, maxArray);
 
     if (max === 0 || Math.floor(max / this.currentScaleStepWidth) === 1) {
         return;
     }
 
-    var scaleStepWidth = 0;
-    for (var i = 0; i < this.scale.length; i++) {
+    let scaleStepWidth = 0;
+    for (let i = 0; i < this.scale.length; i++) {
         if (max < this.scale[i]) {
             scaleStepWidth = this.currentScaleStepWidth = this.scale[i - 1];
             break;
@@ -73,21 +75,21 @@ MemoryChart.prototype.rescale = function (values) {
 
 MemoryChart.prototype.start = function (processName) {
 
-    var memoryScript = fs.readFileSync('scripts/memory-script.sh', 'utf8');
+    let memoryScript = fs.readFileSync('scripts/memory-script.sh', 'utf8');
     memoryScript = sprintf(memoryScript, processName).removeAllNewlines();
 
-    var command = {
+    const command = {
         cmd: 'adb',
         args: ['shell', memoryScript]
     };
 
-    LineChart.prototype.start.call(this, command, function (values, data) {
+    LineChart.prototype.start.call(this, command, (values, data) => {
         //console.log(values);
 
         if (values[0] === 'ok') {
-            var pss = parseInt(values[1], 10);
-            var privateDirty = parseInt(values[2], 10);
-            var privateClean = parseInt(values[3], 10);
+            const pss = parseInt(values[1], 10);
+            const privateDirty = parseInt(values[2], 10);
+            const privateClean = parseInt(values[3], 10);
 
             LineChart.prototype.prepareData.call(this, [
                     pss,
@@ -117,7 +119,7 @@ MemoryChart.prototype.start = function (processName) {
             this.info.privateDirty.text(privateDirty + ' KB');
             this.info.privateClean.text(privateClean + ' KB');
         }
-    }.bind(this));
+    });
 };
 
 MemoryChart.prototype.kill = function () {

@@ -1,19 +1,21 @@
-$(document).ready(function () {
-    var CpuChart = require('./scripts/cpu-chart.js');
-    var MemoryChart = require('./scripts/memory-chart.js');
-    var Logger = require('./scripts/logger.js');
+"use strict";
 
-    var chromeTabsShell = $('.chrome-tabs-shell');
+$(document).ready(() => {
+    const CpuChart = require('./scripts/cpu-chart.js');
+    const MemoryChart = require('./scripts/memory-chart.js');
+    const Logger = require('./scripts/logger.js');
+
+    const chromeTabsShell = $('.chrome-tabs-shell');
     chromeTabs.init({
         $shell: chromeTabsShell,
         minWidth: 45,
         maxWidth: 160
     });
 
-    chromeTabsShell.bind('chromeTabRender', function () {
-        var currentTab = chromeTabsShell.find('.chrome-tab-current');
+    chromeTabsShell.bind('chromeTabRender', () => {
+        const currentTab = chromeTabsShell.find('.chrome-tab-current');
 
-        var cpuDiv = $('#cpu');
+        const cpuDiv = $('#cpu');
         /*var memoryDiv = $('#memory');*/
         switch ($.trim(currentTab.text())) {
             case 'CPU':
@@ -29,13 +31,13 @@ $(document).ready(function () {
         }
     });
 
-    var cpuCtx = $('#cpuChart').get(0).getContext('2d');
+    const cpuCtx = $('#cpuChart').get(0).getContext('2d');
 
-    var cpuUtilization = $('#cpuUtilization');
-    var processPid = $('#processPid');
-    var threadCount = $('#threadCount');
+    const cpuUtilization = $('#cpuUtilization');
+    const processPid = $('#processPid');
+    const threadCount = $('#threadCount');
 
-    var cpuChart = new CpuChart(cpuCtx, {
+    const cpuChart = new CpuChart(cpuCtx, {
         cpuUtilization: cpuUtilization,
         processPid: processPid,
         threadCount: threadCount
@@ -43,13 +45,13 @@ $(document).ready(function () {
     cpuChart.init();
     $('#cpuLegend').append(cpuChart.legend());
 
-    var memoryCtx = $('#memoryChart').get(0).getContext('2d');
+    const memoryCtx = $('#memoryChart').get(0).getContext('2d');
 
-    var pss = $('#pss');
-    var privateDirty = $('#privateDirty');
-    var privateClean = $('#privateClean');
+    const pss = $('#pss');
+    const privateDirty = $('#privateDirty');
+    const privateClean = $('#privateClean');
 
-    var memoryChart = new MemoryChart(memoryCtx, {
+    const memoryChart = new MemoryChart(memoryCtx, {
         pss: pss,
         privateDirty: privateDirty,
         privateClean: privateClean
@@ -57,14 +59,14 @@ $(document).ready(function () {
     memoryChart.init();
     $('#memoryLegend').append(memoryChart.legend());
 
-    var processName = $('#processName');
-    var startMonitor = $('#startMonitor');
-    var stopMonitor = $('#stopMonitor');
-    var enableLog = $('#enableLog');
+    const processName = $('#processName');
+    const startMonitor = $('#startMonitor');
+    const stopMonitor = $('#stopMonitor');
+    const enableLog = $('#enableLog');
 
     stopMonitor.prop('disabled', true);
 
-    startMonitor.click(function () {
+    startMonitor.click(() => {
         processName.prop('disabled', true);
         startMonitor.prop('disabled', true);
         stopMonitor.prop('disabled', false);
@@ -73,7 +75,7 @@ $(document).ready(function () {
         memoryChart.start(processName.val().trim());
     });
 
-    stopMonitor.click(function () {
+    stopMonitor.click(() => {
         processName.prop('disabled', false);
         startMonitor.prop('disabled', false);
         stopMonitor.prop('disabled', true);
@@ -82,7 +84,7 @@ $(document).ready(function () {
         memoryChart.kill();
     });
 
-    enableLog.change(function () {
+    enableLog.change(() => {
         if (enableLog.is(':checked')) {
             Logger.enableLog = true;
             cpuChart.log();

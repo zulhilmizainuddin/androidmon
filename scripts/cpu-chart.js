@@ -1,11 +1,13 @@
-var sprintf = require('sprintf-js').sprintf;
-var moment = require('moment');
-var fs = require('fs');
-var LineChart = require('./line-chart.js');
-var Logger = require('./logger.js');
+"use strict";
+
+const sprintf = require('sprintf-js').sprintf;
+const moment = require('moment');
+const fs = require('fs');
+const LineChart = require('./line-chart.js');
+const Logger = require('./logger.js');
 require('./string.js');
 
-var CpuChart = function (ctx, info) {
+const CpuChart = function (ctx, info) {
     this.info = info;
 
     LineChart.call(this, ctx);
@@ -28,21 +30,21 @@ CpuChart.prototype.init = function () {
 
 CpuChart.prototype.start = function (processName) {
 
-    var cpuScript = fs.readFileSync('scripts/cpu-script.sh', 'utf8');
+    let cpuScript = fs.readFileSync('scripts/cpu-script.sh', 'utf8');
     cpuScript = sprintf(cpuScript, processName).removeAllNewlines();
 
-    var command = {
+    const command = {
         cmd: 'adb',
         args: ['shell', cpuScript]
     };
 
-    LineChart.prototype.start.call(this, command, function (values, data) {
+    LineChart.prototype.start.call(this, command, (values, data) => {
         //console.log(values);
 
         if (values[0] === 'ok') {
-            var cpuUtilization = parseInt(values[1].replace('%', ''), 10);
-            var processPid = parseInt(values[2], 10);
-            var threadCount = parseInt(values[3], 10);
+            const cpuUtilization = parseInt(values[1].replace('%', ''), 10);
+            const processPid = parseInt(values[2], 10);
+            const threadCount = parseInt(values[3], 10);
 
             LineChart.prototype.prepareData.call(this, [
                     cpuUtilization
@@ -68,7 +70,7 @@ CpuChart.prototype.start = function (processName) {
             this.info.processPid.text(processPid);
             this.info.threadCount.text(threadCount);
         }
-    }.bind(this));
+    });
 };
 
 CpuChart.prototype.kill = function () {
