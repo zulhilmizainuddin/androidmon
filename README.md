@@ -15,7 +15,7 @@ Get the dependencies:
     
 ## How to use
 
-Start the application by running:
+Start the application by running androidmon.bat or run the following command at the root folder:
 
     npm start
     
