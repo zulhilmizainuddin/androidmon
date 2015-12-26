@@ -1,6 +1,5 @@
 "use strict";
 
-const sprintf = require('sprintf-js').sprintf;
 const moment = require('moment');
 const fs = require('fs');
 const LineChart = require('./line-chart.js');
@@ -75,49 +74,52 @@ MemoryChart.prototype.rescale = function (values) {
 
 MemoryChart.prototype.start = function (processName) {
 
-    let memoryScript = fs.readFileSync('scripts/memory-script.sh', 'utf8');
-    memoryScript = sprintf(memoryScript, processName).removeAllNewlines();
+    fs.readFile('scripts/memory-script.sh', {encoding: 'utf-8'}, (err, data) => {
+        if (!err) {
+            const memoryScript = data.replace('%s', processName).removeAllNewlines();
 
-    const command = {
-        cmd: 'adb',
-        args: ['shell', memoryScript]
-    };
+            const command = {
+                cmd: 'adb',
+                args: ['shell', memoryScript]
+            };
 
-    LineChart.prototype.start.call(this, command, (values, data) => {
-        //console.log(values);
+            LineChart.prototype.start.call(this, command, (values, data) => {
+                //console.log(values);
 
-        if (values[0] === 'ok') {
-            const pss = parseInt(values[1], 10);
-            const privateDirty = parseInt(values[2], 10);
-            const privateClean = parseInt(values[3], 10);
+                if (values[0] === 'ok') {
+                    const pss = parseInt(values[1], 10);
+                    const privateDirty = parseInt(values[2], 10);
+                    const privateClean = parseInt(values[3], 10);
 
-            LineChart.prototype.prepareData.call(this, [
-                    pss,
-                    privateDirty,
-                    privateClean
-                ],
-                data);
+                    LineChart.prototype.prepareData.call(this, [
+                            pss,
+                            privateDirty,
+                            privateClean
+                        ],
+                        data);
 
-            this.rescale(data);
+                    this.rescale(data);
 
-            if (this.logger !== null) {
-                this.logger.log(this.logFile, {
-                    columnNames: [
-                        'PSS',
-                        'Private dirty',
-                        'Private clean'
-                    ],
-                    values: [
-                        pss,
-                        privateDirty,
-                        privateClean
-                    ]
-                });
-            }
+                    if (this.logger !== null) {
+                        this.logger.log(this.logFile, {
+                            columnNames: [
+                                'PSS',
+                                'Private dirty',
+                                'Private clean'
+                            ],
+                            values: [
+                                pss,
+                                privateDirty,
+                                privateClean
+                            ]
+                        });
+                    }
 
-            this.info.pss.text(pss + " KB");
-            this.info.privateDirty.text(privateDirty + ' KB');
-            this.info.privateClean.text(privateClean + ' KB');
+                    this.info.pss.text(pss + " KB");
+                    this.info.privateDirty.text(privateDirty + ' KB');
+                    this.info.privateClean.text(privateClean + ' KB');
+                }
+            });
         }
     });
 };

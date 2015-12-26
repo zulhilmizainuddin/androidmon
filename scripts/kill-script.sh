@@ -1,2 +1,2 @@
-filename=/sdcard/apm.conf;
+filename=/sdcard/androidmon.conf;
 echo 1 > $filename;

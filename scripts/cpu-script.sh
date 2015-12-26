@@ -1,4 +1,4 @@
-filename=/sdcard/apm.conf;
+filename=/sdcard/androidmon.conf;
 echo 0 > $filename;
 while true;
     do flag=$(cat $filename);

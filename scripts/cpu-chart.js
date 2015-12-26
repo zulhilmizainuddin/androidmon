@@ -1,6 +1,5 @@
 "use strict";
 
-const sprintf = require('sprintf-js').sprintf;
 const moment = require('moment');
 const fs = require('fs');
 const LineChart = require('./line-chart.js');
@@ -30,45 +29,48 @@ CpuChart.prototype.init = function () {
 
 CpuChart.prototype.start = function (processName) {
 
-    let cpuScript = fs.readFileSync('scripts/cpu-script.sh', 'utf8');
-    cpuScript = sprintf(cpuScript, processName).removeAllNewlines();
+    fs.readFile('scripts/cpu-script.sh', {encoding: 'utf-8'}, (err, data) => {
+        if (!err) {
+            const cpuScript = data.replace('%s', processName).removeAllNewlines();
 
-    const command = {
-        cmd: 'adb',
-        args: ['shell', cpuScript]
-    };
+            const command = {
+                cmd: 'adb',
+                args: ['shell', cpuScript]
+            };
 
-    LineChart.prototype.start.call(this, command, (values, data) => {
-        //console.log(values);
+            LineChart.prototype.start.call(this, command, (values, data) => {
+                //console.log(values);
 
-        if (values[0] === 'ok') {
-            const cpuUtilization = parseInt(values[1].replace('%', ''), 10);
-            const processPid = parseInt(values[2], 10);
-            const threadCount = parseInt(values[3], 10);
+                if (values[0] === 'ok') {
+                    const cpuUtilization = parseInt(values[1].replace('%', ''), 10);
+                    const processPid = parseInt(values[2], 10);
+                    const threadCount = parseInt(values[3], 10);
 
-            LineChart.prototype.prepareData.call(this, [
-                    cpuUtilization
-                ],
-                data);
+                    LineChart.prototype.prepareData.call(this, [
+                            cpuUtilization
+                        ],
+                        data);
 
-            if (this.logger !== null) {
-                this.logger.log(this.logFile, {
-                    columnNames: [
-                        'Utilization',
-                        'PID',
-                        'Threads'
-                    ],
-                    values: [
-                        cpuUtilization,
-                        processPid,
-                        threadCount
-                    ]
-                });
-            }
+                    if (this.logger !== null) {
+                        this.logger.log(this.logFile, {
+                            columnNames: [
+                                'Utilization',
+                                'PID',
+                                'Threads'
+                            ],
+                            values: [
+                                cpuUtilization,
+                                processPid,
+                                threadCount
+                            ]
+                        });
+                    }
 
-            this.info.cpuUtilization.text(cpuUtilization + '%');
-            this.info.processPid.text(processPid);
-            this.info.threadCount.text(threadCount);
+                    this.info.cpuUtilization.text(cpuUtilization + '%');
+                    this.info.processPid.text(processPid);
+                    this.info.threadCount.text(threadCount);
+                }
+            });
         }
     });
 };
