@@ -41,35 +41,33 @@ CpuChart.prototype.start = function (processName) {
             LineChart.prototype.start.call(this, command, (values, data) => {
                 //console.log(values);
 
-                if (values[0] === 'ok') {
-                    const cpuUtilization = parseInt(values[1].replace('%', ''), 10);
-                    const processPid = parseInt(values[2], 10);
-                    const threadCount = parseInt(values[3], 10);
+                const cpuUtilization = parseInt(values[0].replace('%', ''), 10);
+                const processPid = parseInt(values[1], 10);
+                const threadCount = parseInt(values[2], 10);
 
-                    LineChart.prototype.prepareData.call(this, [
-                            cpuUtilization
+                LineChart.prototype.prepareData.call(this, [
+                        cpuUtilization
+                    ],
+                    data);
+
+                if (this.logger !== null) {
+                    this.logger.log(this.logFile, {
+                        columnNames: [
+                            'Utilization',
+                            'PID',
+                            'Threads'
                         ],
-                        data);
-
-                    if (this.logger !== null) {
-                        this.logger.log(this.logFile, {
-                            columnNames: [
-                                'Utilization',
-                                'PID',
-                                'Threads'
-                            ],
-                            values: [
-                                cpuUtilization,
-                                processPid,
-                                threadCount
-                            ]
-                        });
-                    }
-
-                    this.info.cpuUtilization.text(cpuUtilization + '%');
-                    this.info.processPid.text(processPid);
-                    this.info.threadCount.text(threadCount);
+                        values: [
+                            cpuUtilization,
+                            processPid,
+                            threadCount
+                        ]
+                    });
                 }
+
+        this.info.cpuUtilization.text(cpuUtilization + '%');
+        this.info.processPid.text(processPid);
+        this.info.threadCount.text(threadCount);
             });
         }
     });

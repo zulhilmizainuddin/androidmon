@@ -86,39 +86,37 @@ MemoryChart.prototype.start = function (processName) {
             LineChart.prototype.start.call(this, command, (values, data) => {
                 //console.log(values);
 
-                if (values[0] === 'ok') {
-                    const pss = parseInt(values[1], 10);
-                    const privateDirty = parseInt(values[2], 10);
-                    const privateClean = parseInt(values[3], 10);
+                const pss = parseInt(values[0], 10);
+                const privateDirty = parseInt(values[1], 10);
+                const privateClean = parseInt(values[2], 10);
 
-                    LineChart.prototype.prepareData.call(this, [
+                LineChart.prototype.prepareData.call(this, [
+                        pss,
+                        privateDirty,
+                        privateClean
+                    ],
+                    data);
+
+                this.rescale(data);
+
+                if (this.logger !== null) {
+                    this.logger.log(this.logFile, {
+                        columnNames: [
+                            'PSS',
+                            'Private dirty',
+                            'Private clean'
+                        ],
+                        values: [
                             pss,
                             privateDirty,
                             privateClean
-                        ],
-                        data);
-
-                    this.rescale(data);
-
-                    if (this.logger !== null) {
-                        this.logger.log(this.logFile, {
-                            columnNames: [
-                                'PSS',
-                                'Private dirty',
-                                'Private clean'
-                            ],
-                            values: [
-                                pss,
-                                privateDirty,
-                                privateClean
-                            ]
-                        });
-                    }
-
-                    this.info.pss.text(pss + " KB");
-                    this.info.privateDirty.text(privateDirty + ' KB');
-                    this.info.privateClean.text(privateClean + ' KB');
+                        ]
+                    });
                 }
+
+                this.info.pss.text(pss + " KB");
+                this.info.privateDirty.text(privateDirty + ' KB');
+                this.info.privateClean.text(privateClean + ' KB');
             });
         }
     });

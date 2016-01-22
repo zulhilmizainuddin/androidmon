@@ -9,9 +9,9 @@ while true;
         if [ $? -eq 0 ];
             then if [ -n "$result" ];
                 then array=($result);
-                echo "ok ${array[2]} ${array[0]} ${array[4]}";
-            else echo "ok 0 0 0";
+                echo "${array[2]} ${array[0]} ${array[4]}";
+            else echo "0 0 0";
             fi;
-        else echo "ok 0 0 0";
+        else echo "0 0 0";
         fi;
     done
