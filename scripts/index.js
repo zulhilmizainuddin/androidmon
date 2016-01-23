@@ -5,37 +5,8 @@ $(document).ready(() => {
     const MemoryChart = require('./scripts/memory-chart.js');
     const Logger = require('./scripts/logger.js');
 
-    const chromeTabsShell = $('.chrome-tabs-shell');
-    chromeTabs.init({
-        $shell: chromeTabsShell,
-        minWidth: 45,
-        maxWidth: 160
-    });
-
-    chromeTabsShell.bind('chromeTabRender', () => {
-        const currentTab = chromeTabsShell.find('.chrome-tab-current');
-
-        const cpuDiv = $('#cpu');
-        const memoryDiv = $('#memory');
-        const networkDiv = $('#network');
-
-        switch ($.trim(currentTab.text())) {
-            case 'CPU':
-                cpuDiv.css({'display':'block'});
-                memoryDiv.css({'display':'none'});
-                networkDiv.css({'display':'none'});
-                break;
-            case 'Memory':
-                cpuDiv.css({'display':'none'});
-                memoryDiv.css({'display':'block'});
-                networkDiv.css({'display':'none'});
-                break;
-            case 'Network':
-                cpuDiv.css({'display':'none'});
-                memoryDiv.css({'display':'none'});
-                networkDiv.css({'display':'block'});
-                break;
-        }
+    $(() => {
+        $('#tabs a:last').tab('show');
     });
 
     const cpuCtx = $('#cpuChart').get(0).getContext('2d');
