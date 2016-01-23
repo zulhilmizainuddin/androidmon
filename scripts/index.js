@@ -16,17 +16,24 @@ $(document).ready(() => {
         const currentTab = chromeTabsShell.find('.chrome-tab-current');
 
         const cpuDiv = $('#cpu');
-        /*var memoryDiv = $('#memory');*/
+        const memoryDiv = $('#memory');
+        const networkDiv = $('#network');
+
         switch ($.trim(currentTab.text())) {
             case 'CPU':
-                cpuDiv.show();
-                /*memoryDiv.hide();*/
-                document.getElementById('memory').style.visibility = 'hidden';
+                cpuDiv.css({'display':'block'});
+                memoryDiv.css({'display':'none'});
+                networkDiv.css({'display':'none'});
                 break;
             case 'Memory':
-                cpuDiv.hide();
-                /*memoryDiv.show();*/
-                document.getElementById('memory').style.visibility = 'visible';
+                cpuDiv.css({'display':'none'});
+                memoryDiv.css({'display':'block'});
+                networkDiv.css({'display':'none'});
+                break;
+            case 'Network':
+                cpuDiv.css({'display':'none'});
+                memoryDiv.css({'display':'none'});
+                networkDiv.css({'display':'block'});
                 break;
         }
     });

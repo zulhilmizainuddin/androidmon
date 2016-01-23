@@ -36,6 +36,18 @@
                 <div class="chrome-tab-curves-right"></div>
             </div>
         </div>
+        <div class="chrome-tab">
+            <div class="chrome-tab-favicon"></div>
+            <div class="chrome-tab-title">Network</div>
+            <div class="chrome-tab-curves">
+                <div class="chrome-tab-curves-left-shadow"></div>
+                <div class="chrome-tab-curves-left-highlight"></div>
+                <div class="chrome-tab-curves-left"></div>
+                <div class="chrome-tab-curves-right-shadow"></div>
+                <div class="chrome-tab-curves-right-highlight"></div>
+                <div class="chrome-tab-curves-right"></div>
+            </div>
+        </div>
     </div>
     <div class="chrome-shell-bottom-bar"></div>
 </div>
@@ -74,7 +86,7 @@
         <label class="chartLegendLabel">Legend</label>
     </div>
 </div>
-<div id="memory" class="chart" style="visibility: hidden">
+<div id="memory" class="chart">
     <canvas id="memoryChart" class="chartCanvas"></canvas>
     <div class="usageDisplay">
         <h2>Memory</h2>
@@ -92,6 +104,23 @@
         </div>
     </div>
     <div id="memoryLegend" class="chartLegend">
+        <label class="chartLegendLabel">Legend</label>
+    </div>
+</div>
+<div id="network" class="chart">
+    <canvas id="networkChart" class="chartCanvas"></canvas>
+    <div class="usageDisplay">
+        <h2>Network</h2>
+        <div>
+            <h6>Upload</h6>
+            <h3 id="upload"></h3>
+        </div>
+        <div>
+            <h6>Download</h6>
+            <h3 id="download"></h3>
+        </div>
+    </div>
+    <div id="networkLegend" class="chartLegend">
         <label class="chartLegendLabel">Legend</label>
     </div>
 </div>
