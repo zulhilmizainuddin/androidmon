@@ -3,11 +3,8 @@
 $(document).ready(() => {
     const CpuChart = require('./scripts/cpu-chart.js');
     const MemoryChart = require('./scripts/memory-chart.js');
+    const NetworkChart = require('./scripts/network-chart.js');
     const Logger = require('./scripts/logger.js');
-
-    $(() => {
-        $('#tabs a:last').tab('show');
-    });
 
     const cpuCtx = $('#cpuChart').get(0).getContext('2d');
 
@@ -37,6 +34,18 @@ $(document).ready(() => {
     memoryChart.init();
     $('#memoryLegend').append(memoryChart.legend());
 
+    const networkCtx = $('#networkChart').get(0).getContext('2d');
+
+    const download = $('#download');
+    const upload = $('#upload');
+
+    const networkChart = new NetworkChart(networkCtx, {
+        download: download,
+        upload: upload
+    });
+    networkChart.init();
+    $('#networkLegend').append(networkChart.legend());
+
     const processName = $('#processName');
     const startMonitor = $('#startMonitor');
     const stopMonitor = $('#stopMonitor');
@@ -51,6 +60,7 @@ $(document).ready(() => {
 
         cpuChart.start(processName.val().trim());
         memoryChart.start(processName.val().trim());
+        networkChart.start(processName.val().trim());
     });
 
     stopMonitor.click(() => {
@@ -60,6 +70,7 @@ $(document).ready(() => {
 
         cpuChart.kill();
         memoryChart.kill();
+        networkChart.kill();
     });
 
     enableLog.change(() => {
@@ -67,6 +78,7 @@ $(document).ready(() => {
             Logger.enableLog = true;
             cpuChart.log();
             memoryChart.log();
+            networkChart.log();
         }
         else {
             Logger.enableLog = false;
