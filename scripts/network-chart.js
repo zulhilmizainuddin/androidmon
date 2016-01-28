@@ -81,10 +81,12 @@ NetworkChart.prototype.start = function (processName) {
             };
 
             LineChart.prototype.start.call(this, command, (values, data) => {
-                console.log(values);
+                /*console.log(values);*/
 
-                const upload = parseInt(values[1], 10);
-                const download = parseInt(values[4], 10);
+                const upload =
+                    !isNaN(parseInt(values[1], 10)) ? parseInt(values[1], 10) : 0;
+                const download =
+                    !isNaN(parseInt(values[4], 10)) ? parseInt(values[4], 10) : 0;
 
                 LineChart.prototype.prepareData.call(this, [
                         upload,
