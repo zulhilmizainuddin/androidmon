@@ -17,10 +17,18 @@ app.on('window-all-closed', () => {
 app.on('ready', () => {
     process.env.Path += `;${__dirname}\\adb`;
 
-    mainWindow = new BrowserWindow({width: 800, height: 600});
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow = new BrowserWindow({
+        width: 800,
+        height: 520,
+        resizable: false,
+        fullscreen: false,
+        autoHideMenuBar: true
+    });
 
-    //mainWindow.openDevTools();
+    /*mainWindow.setMenu(null);*/
+    /*mainWindow.openDevTools();*/
+
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
 
     mainWindow.on('closed', () => {
         fs.readFile('scripts/kill-script.sh', {encoding: 'utf-8'}, (err, data) => {
