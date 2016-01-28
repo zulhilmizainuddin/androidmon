@@ -6,6 +6,46 @@ $(document).ready(() => {
     const NetworkChart = require('./scripts/network-chart.js');
     const Logger = require('./scripts/logger.js');
 
+    const cpuDiv = $('#cpu');
+    const memoryDiv = $('#memory');
+    const networkDiv = $('#network');
+
+    cpuDiv.css({'visibility': 'visible'});
+    memoryDiv.css({'visibility': 'hidden'});
+    networkDiv.css({'visibility': 'hidden'});
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
+        switch ($(e.target).attr('href')) {
+            case '#cpu':
+                cpuDiv.appendTo('#tabContent');
+                memoryDiv.appendTo('#tabContent');
+                networkDiv.appendTo('#tabContent');
+
+                cpuDiv.css({'visibility': 'visible'});
+                memoryDiv.css({'visibility': 'hidden'});
+                networkDiv.css({'visibility': 'hidden'});
+                break;
+            case '#memory':
+                memoryDiv.appendTo('#tabContent');
+                cpuDiv.appendTo('#tabContent');
+                networkDiv.appendTo('#tabContent');
+
+                cpuDiv.css({'visibility': 'hidden'});
+                memoryDiv.css({'visibility': 'visible'});
+                networkDiv.css({'visibility': 'hidden'});
+                break;
+            case '#network':
+                networkDiv.appendTo('#tabContent');
+                memoryDiv.appendTo('#tabContent');
+                cpuDiv.appendTo('#tabContent');
+
+                cpuDiv.css({'visibility': 'hidden'});
+                memoryDiv.css({'visibility': 'hidden'});
+                networkDiv.css({'visibility': 'visible'});
+                break;
+        }
+    });
+
     const cpuCtx = $('#cpuChart').get(0).getContext('2d');
 
     const cpuUtilization = $('#cpuUtilization');

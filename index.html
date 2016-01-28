@@ -7,12 +7,11 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="content/index.css">
 </head>
-
 <body>
 <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
-    <li class="active"><a data-target="#cpu" data-toggle="tab">CPU</a></li>
-    <li><a data-target="#memory" data-toggle="tab">Memory</a></li>
-    <li><a data-target="#network" data-toggle="tab">Network</a></li>
+    <li class="active"><a href="#cpu" data-toggle="tab">CPU</a></li>
+    <li><a href="#memory" data-toggle="tab">Memory</a></li>
+    <li><a href="#network" data-toggle="tab">Network</a></li>
 </ul>
 <div id="processNameInput" class="form-inline">
     <div class="form-group">
@@ -28,8 +27,8 @@
         </label>
     </div>
 </div>
-<div class="tab-content">
-    <div id="cpu" class="tab-pane active">
+<div class="tab-content" id="tabContent">
+    <div id="cpu">
         <canvas id="cpuChart" class="chartCanvas"></canvas>
         <div class="usageDisplay">
             <h2>CPU</h2>
@@ -50,7 +49,7 @@
             <label class="chartLegendLabel">Legend</label>
         </div>
     </div>
-    <div id="memory" class="tab-pane active">
+    <div id="memory">
         <canvas id="memoryChart" class="chartCanvas"></canvas>
         <div class="usageDisplay">
             <h2>Memory</h2>
@@ -71,7 +70,7 @@
             <label class="chartLegendLabel">Legend</label>
         </div>
     </div>
-    <div id="network" class="tab-pane active">
+    <div id="network">
         <canvas id="networkChart" class="chartCanvas"></canvas>
         <div class="usageDisplay">
             <h2>Network</h2>
