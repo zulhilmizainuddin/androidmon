@@ -1,11 +1,5 @@
-filename=/sdcard/androidmon.conf;
-echo 0 > $filename;
 while true;
-    do flag=$(cat $filename);
-        if [ $flag -eq 1 ];
-            then break;
-        fi;
-        processInfo=$(ps | grep %s$);
+    do processInfo=$(ps | grep %s$);
         processInfoArray=($processInfo);
         pid=${processInfoArray[1]};
         if [ $pid ];

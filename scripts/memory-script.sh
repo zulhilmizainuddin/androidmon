@@ -1,11 +1,5 @@
-filename=/sdcard/androidmon.conf;
-echo 0 > $filename;
 while true;
-    do flag=$(cat $filename);
-        if [ $flag -eq 1 ];
-            then break;
-        fi;
-        result=$(dumpsys meminfo %s | grep TOTAL);
+    do result=$(dumpsys meminfo %s | grep TOTAL);
         if [ $? -eq 0 ];
             then if [ -n "$result" ];
                     then array=($result);

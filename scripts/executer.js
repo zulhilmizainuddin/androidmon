@@ -48,17 +48,6 @@ Executer.prototype.execute = function (command, args) {
 };
 
 Executer.prototype.terminate = function () {
-
-    this.child.on('exit', () => {
-        fs.readFile('scripts/kill-script.sh', {encoding: 'utf-8'}, (err, data) => {
-            if (!err) {
-                const killScript = data.removeAllNewlines();
-
-                childProcess.exec(`adb shell "${killScript}"`);
-            }
-        });
-    });
-
     this.child.kill();
 };
 

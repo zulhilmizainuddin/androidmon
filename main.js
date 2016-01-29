@@ -2,7 +2,6 @@
 
 const app = require('app');
 const BrowserWindow = require('browser-window');
-const childProcess = require('child_process');
 const fs = require('fs');
 require('./scripts/string.js');
 
@@ -31,13 +30,6 @@ app.on('ready', () => {
     mainWindow.loadURL(`file://${__dirname}/index.html`);
 
     mainWindow.on('closed', () => {
-        fs.readFile('scripts/kill-script.sh', {encoding: 'utf-8'}, (err, data) => {
-            if (!err) {
-                const killScript = data.removeAllNewlines();
-
-                childProcess.exec(`adb shell "${killScript}"`);
-                mainWindow = null;
-            }
-        });
+        mainWindow = null;
     });
 });
