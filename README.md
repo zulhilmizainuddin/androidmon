@@ -13,6 +13,8 @@ Get the dependencies:
     npm install
     bower install
     
+Androidmon uses <a href="https://github.com/zulhilmizainuddin/nettomon#nettomon-">nettomon</a> for monitoring network usage. Refer <a href="https://github.com/zulhilmizainuddin/nettomon#android">here</a> for building and deploying nettomon into an Android device. **Note that the Android device must be rooted for the network monitoring to work.**
+    
 ## How to use
 
 Start the application by running androidmon.bat or run the following command at the root folder:
