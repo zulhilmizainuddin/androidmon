@@ -29,7 +29,10 @@ Start the application by running androidmon.bat or run the following command at 
 ## Screenshots
 
 Cpu chart:<br>
-<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/cpu-screenshot.png" width="640px" height="480px">
+<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/cpu-screenshot.png">
 
 Memory chart:<br>
-<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/memory-screenshot.png" width="640px" height="480px">
+<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/memory-screenshot.png">
+
+Network chart:<br>
+<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/network-screenshot.png">
