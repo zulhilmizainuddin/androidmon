@@ -11,13 +11,13 @@ const NetworkChart = function (ctx, info) {
 
     this.scale = [
         Math.pow(10, 0),
-        Math.pow(10, 1),
-        Math.pow(10, 2),
-        Math.pow(10, 3),
-        Math.pow(10, 4),
-        Math.pow(10, 5),
-        Math.pow(10, 6),
-        Math.pow(10, 7)
+        Math.pow(10, 1) / 5,
+        Math.pow(10, 2) / 5,
+        Math.pow(10, 3) / 5,
+        Math.pow(10, 4) / 5,
+        Math.pow(10, 5) / 5,
+        Math.pow(10, 6) / 5,
+        Math.pow(10, 7) / 5
     ];
 
     this.currentScaleStepWidth = this.scale[0];
