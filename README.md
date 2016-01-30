@@ -1,8 +1,8 @@
 # androidmon
 
-An application for monitoring android process cpu and memory usage created using Node.js, Github's Electron and Chart.js.
+An application for monitoring android process cpu, memory and network usage created using Node.js, Github's Electron and Chart.js.
 
-It also provides cpu and memory usage logging capability in csv format for easy import into Excel.
+It also provides cpu, memory and network usage logging capability in csv format for easy import into Excel.
 
 ## Getting Started
 
@@ -28,11 +28,11 @@ Start the application by running androidmon.bat or run the following command at 
 
 ## Screenshots
 
-Cpu chart:<br>
-<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/cpu-screenshot.png">
+**CPU chart:**<br>
+<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/cpu-screenshot.png" width="80%" height="auto">
 
-Memory chart:<br>
-<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/memory-screenshot.png">
+**Memory chart:**<br>
+<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/memory-screenshot.png" width="80%" height="auto">
 
-Network chart:<br>
-<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/network-screenshot.png">
+**Network chart:**<br>
+<img src="https://github.com/zulhilmizainuddin/androidmon/blob/master/screenshots/network-screenshot.png" width="80%" height="auto">
