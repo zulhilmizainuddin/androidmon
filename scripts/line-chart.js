@@ -31,7 +31,7 @@ const LineChart = function (ctx) {
     };
 
     this.data = {
-        labels: new Array(60).fill(0).map((value, index) => { return 60 - index; })
+        labels: new Array(60).fill(0).map((value, index) => { return 60 - index - 1; })
     };
 };
 
