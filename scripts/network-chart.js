@@ -73,8 +73,6 @@ NetworkChart.prototype.start = function (processName) {
         if (!err) {
             const networkScript = data.replace('%s', processName).removeAllNewlines();
 
-            console.log(networkScript);
-
             const command = {
                 cmd: 'adb',
                 args: ['shell', networkScript]
@@ -86,7 +84,7 @@ NetworkChart.prototype.start = function (processName) {
                 const upload =
                     !isNaN(parseInt(values[1], 10)) ? parseInt(values[1], 10) : 0;
                 const download =
-                    !isNaN(parseInt(values[4], 10)) ? parseInt(values[4], 10) : 0;
+                    !isNaN(parseInt(values[5], 10)) ? parseInt(values[5], 10) : 0;
 
                 LineChart.prototype.prepareData.call(this, [
                         upload,
