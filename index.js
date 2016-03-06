@@ -1,11 +1,23 @@
 "use strict";
 
-$(document).ready(() => {
-    const CpuChart = require('./scripts/cpu-chart.js');
-    const MemoryChart = require('./scripts/memory-chart.js');
-    const NetworkChart = require('./scripts/network-chart.js');
-    const Logger = require('./scripts/logger.js');
+const CpuChart = require('./scripts/cpu-chart.js');
+const MemoryChart = require('./scripts/memory-chart.js');
+const NetworkChart = require('./scripts/network-chart.js');
+const Logger = require('./scripts/logger.js');
 
+$(document).ready(() => {
+
+    initializeChartTabs();
+
+    const cpuChart = initializeCpuChart();
+    const memoryChart = initializeMemoryChart();
+    const networkChart = initializeNetworkChart();
+
+    initializeMonitoring(cpuChart, memoryChart, networkChart);
+    initializeLogger(cpuChart, memoryChart, networkChart);
+});
+
+function initializeChartTabs() {
     const cpuDiv = $('#cpu');
     const memoryDiv = $('#memory');
     const networkDiv = $('#network');
@@ -45,7 +57,9 @@ $(document).ready(() => {
                 break;
         }
     });
+}
 
+function initializeCpuChart() {
     const cpuCtx = $('#cpuChart').get(0).getContext('2d');
 
     const cpuUtilization = $('#cpuUtilization');
@@ -60,6 +74,10 @@ $(document).ready(() => {
     cpuChart.init();
     $('#cpuLegend').append(cpuChart.legend());
 
+    return cpuChart;
+}
+
+function initializeMemoryChart() {
     const memoryCtx = $('#memoryChart').get(0).getContext('2d');
 
     const pss = $('#pss');
@@ -74,6 +92,10 @@ $(document).ready(() => {
     memoryChart.init();
     $('#memoryLegend').append(memoryChart.legend());
 
+    return memoryChart;
+}
+
+function initializeNetworkChart() {
     const networkCtx = $('#networkChart').get(0).getContext('2d');
 
     const download = $('#download');
@@ -86,10 +108,13 @@ $(document).ready(() => {
     networkChart.init();
     $('#networkLegend').append(networkChart.legend());
 
+    return networkChart;
+}
+
+function initializeMonitoring(cpuChart, memoryChart, networkChart) {
     const processName = $('#processName');
     const startMonitor = $('#startMonitor');
     const stopMonitor = $('#stopMonitor');
-    const enableLog = $('#enableLog');
 
     stopMonitor.prop('disabled', true);
 
@@ -112,6 +137,10 @@ $(document).ready(() => {
         memoryChart.kill();
         networkChart.kill();
     });
+}
+
+function initializeLogger(cpuChart, memoryChart, networkChart) {
+    const enableLog = $('#enableLog');
 
     enableLog.change(() => {
         if (enableLog.is(':checked')) {
@@ -124,4 +153,4 @@ $(document).ready(() => {
             Logger.enableLog = false;
         }
     });
-});
+}
