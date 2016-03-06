@@ -1,9 +1,7 @@
 "use strict";
 
-const moment = require('moment');
 const fs = require('fs');
 const LineChart = require('./line-chart.js');
-const Logger = require('./logger.js');
 require('./string.js');
 
 const MemoryChart = function (ctx, info) {
@@ -90,8 +88,7 @@ MemoryChart.prototype.kill = function () {
 };
 
 MemoryChart.prototype.log = function () {
-    this.logFile = moment().format('YYYYMMDD_HHmmss') + '_memory';
-    this.logger = new Logger();
+    LineChart.prototype.log.call(this, 'memory');
 };
 
 MemoryChart.prototype.legend = function () {

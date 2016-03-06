@@ -1,5 +1,7 @@
 "use strict";
 
+const moment = require('moment');
+const Logger = require('./logger.js');
 const Executer = require('./executer.js');
 
 const LineChart = function (ctx) {
@@ -128,6 +130,11 @@ LineChart.prototype.start = function (command, processOutput) {
 
 LineChart.prototype.kill = function () {
     this.executer.terminate();
+};
+
+LineChart.prototype.log = function (suffix) {
+    this.logFile = moment().format('YYYYMMDD_HHmmss') + '_' + suffix;
+    this.logger = new Logger();
 };
 
 LineChart.prototype.legend = function () {

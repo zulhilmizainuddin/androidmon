@@ -1,9 +1,7 @@
 "use strict";
 
-const moment = require('moment');
 const fs = require('fs');
 const LineChart = require('./line-chart.js');
-const Logger = require('./logger.js');
 require('./string.js');
 
 const NetworkChart = function (ctx, info) {
@@ -82,8 +80,7 @@ NetworkChart.prototype.kill = function () {
 };
 
 NetworkChart.prototype.log = function () {
-    this.logFile = moment().format('YYYYMMDD_HHmmss') + '_network';
-    this.logger = new Logger();
+    LineChart.prototype.log.call(this, 'network');
 };
 
 NetworkChart.prototype.legend = function () {

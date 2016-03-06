@@ -1,9 +1,7 @@
 "use strict";
 
-const moment = require('moment');
 const fs = require('fs');
 const LineChart = require('./line-chart.js');
-const Logger = require('./logger.js');
 require('./string.js');
 
 const CpuChart = function (ctx, info) {
@@ -78,8 +76,7 @@ CpuChart.prototype.kill = function () {
 };
 
 CpuChart.prototype.log = function () {
-    this.logFile = moment().format('YYYYMMDD_HHmmss') + '_cpu';
-    this.logger = new Logger();
+    LineChart.prototype.log.call(this, 'cpu');
 };
 
 CpuChart.prototype.legend = function () {
