@@ -33,6 +33,19 @@ const LineChart = function (ctx) {
     this.data = {
         labels: new Array(60).fill(0).map((value, index) => { return 60 - index - 1; })
     };
+
+    this.scale = [
+        Math.pow(10, 0),
+        Math.pow(10, 1) / 5,
+        Math.pow(10, 2) / 5,
+        Math.pow(10, 3) / 5,
+        Math.pow(10, 4) / 5,
+        Math.pow(10, 5) / 5,
+        Math.pow(10, 6) / 5,
+        Math.pow(10, 7) / 5
+    ];
+
+    this.currentScaleStepWidth = this.scale[0];
 };
 
 LineChart.prototype.instantiateChart = function () {
@@ -59,7 +72,26 @@ LineChart.prototype.init = function (datasets) {
     this.instantiateChart();
 };
 
-LineChart.prototype.rescale = function (scaleStepWidth) {
+LineChart.prototype.rescale = function (values) {
+    const maxArray = [];
+    for (let i = 0; i < values.length; i++) {
+        maxArray[i] = Math.max.apply(null, values[i]);
+    }
+
+    const max = Math.max.apply(null, maxArray);
+
+    if (max === 0 || Math.floor(max / this.currentScaleStepWidth) === 1) {
+        return;
+    }
+
+    let scaleStepWidth = 0;
+    for (let i = 0; i < this.scale.length; i++) {
+        if (max < this.scale[i]) {
+            scaleStepWidth = this.currentScaleStepWidth = this.scale[i - 1];
+            break;
+        }
+    }
+
     this.lineChart.destroy();
     this.lineChart = null;
 

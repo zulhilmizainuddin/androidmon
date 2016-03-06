@@ -9,19 +9,6 @@ require('./string.js');
 const NetworkChart = function (ctx, info) {
     this.info = info;
 
-    this.scale = [
-        Math.pow(10, 0),
-        Math.pow(10, 1) / 5,
-        Math.pow(10, 2) / 5,
-        Math.pow(10, 3) / 5,
-        Math.pow(10, 4) / 5,
-        Math.pow(10, 5) / 5,
-        Math.pow(10, 6) / 5,
-        Math.pow(10, 7) / 5
-    ];
-
-    this.currentScaleStepWidth = this.scale[0];
-
     LineChart.call(this, ctx);
 };
 
@@ -41,30 +28,6 @@ NetworkChart.prototype.init = function () {
         fillColor: "rgba(51, 122, 183, 0.1)",
         strokeColor: "rgba(51, 122, 183, 1)"
     }]);
-};
-
-NetworkChart.prototype.rescale = function (values) {
-
-    const maxArray = [];
-    for (let i = 0; i < values.length; i++) {
-        maxArray[i] = Math.max.apply(null, values[i]);
-    }
-
-    const max = Math.max.apply(null, maxArray);
-
-    if (max === 0 || Math.floor(max / this.currentScaleStepWidth) === 1) {
-        return;
-    }
-
-    let scaleStepWidth = 0;
-    for (let i = 0; i < this.scale.length; i++) {
-        if (max < this.scale[i]) {
-            scaleStepWidth = this.currentScaleStepWidth = this.scale[i - 1];
-            break;
-        }
-    }
-
-    LineChart.prototype.rescale.call(this, scaleStepWidth);
 };
 
 NetworkChart.prototype.start = function (processName) {
@@ -92,7 +55,7 @@ NetworkChart.prototype.start = function (processName) {
                     ],
                     data);
 
-                this.rescale(data);
+                LineChart.prototype.rescale.call(this, data);
 
                 if (this.logger !== null) {
                     this.logger.log(this.logFile, {
